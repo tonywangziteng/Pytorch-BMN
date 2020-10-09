@@ -31,19 +31,21 @@ After 9 epochs, we can get accuracy as below:
 
 ### 4. Tutorial
 
-#### 4.1 data prepare
+#### 4.3 How to use the computer
 
-All data is saved in folder 'data', specific list is as follows:  
+登录到电脑之后，东西都在`/media/e813/D/wzt/`这个文件夹下面，具体的代码一般在`./codes`文件夹下面。  
+这个仓库在`./codes/Pytorch-BMN`里面，可以再建一个文件夹，然后新建一个`branch`来放自己的代码。
+
+#### 4.2 data prepare
+
+All data annotations are saved in folder 'data', specific list is as follows:  
 
 data   
 
 -- activitynet_annotations   
 -- · action_name.csv  
 -- · anet_anno_action.json  
--- · video_info_new.csv  
-
--- activitynet_feature_cuhk  
--- · csv_mean_100   
+-- · video_info_new.csv   
 
 -- eval  
 -- · activity_net_1_3_new.json  
@@ -51,7 +53,19 @@ data
 -- · sample_classification_prediction.json  
 -- · sample_detection_prediction.json  
 
-We use same extracted-feature and data as [BSN](https://github.com/wzmsltw/BSN-boundary-sensitive-network).
+**我们自己的数据**  
+
+我们使用ActivityNet作为数据集，因为这个数据集有已经提取好的特征，我们的算力不太支持我们从提取特征开始做。我们可能会用到原视频，在实验室也有，但是因为太大了，暂时没有转存到这个电脑上。
+
+We use same extracted-feature and data as [BSN](https://github.com/wzmsltw/BSN-boundary-sensitive-network).  
+
+提取好的特征的路径: 
+
+/media/e813/D/wzt/datasets/Activitynet/   
+
+所有的提取好的特征已经下载下来到上面的文件夹里面了。每一个视频里面对应一个csv文件，可以使用pandas进行读取。  
+长度限制，每个视频的被提取成了长度100，维度400的特征向量。
+
 
 We support experiments with publicly available dataset ActivityNet 1.3 for temporal action proposal generation now. To download this dataset, please use [official ActivityNet downloader](https://github.com/activitynet/ActivityNet/tree/master/Crawler) to download videos from the YouTube.
 
@@ -59,7 +73,7 @@ To extract visual feature, we adopt TSN model pretrained on the training set of 
 
 For convenience of training and testing, we rescale the feature length of all videos to same length 100, and we provide the rescaled feature at here [Google Cloud](https://drive.google.com/file/d/1ISemndlSDS2FtqQOKL0t3Cjj9yk2yznF/view?usp=sharing) or [Baidu Yun](https://pan.baidu.com/s/19GI3_-uZbd_XynUO6g-8YQ). If you download features from BaiduYun, please use `cat zip_csv_mean_100.z* > csv_mean_100.zip` before unzip. After download and unzip, please put `csv_mean_100` directory to `./data/activitynet_feature_cuhk/` .
 
-#### 4.2 train
+#### 4.3 train
 
 Using `train.py` for training. Check the `opt.py` for more details. You may set the parameters yourself in your own specific task.
 
@@ -67,7 +81,7 @@ Using `train.py` for training. Check the `opt.py` for more details. You may set 
 python train.py -- epochs 30
 ```
  
-#### 4.3 test
+#### 4.4 test
 
 Same as above, using `test.py` for testing.
 

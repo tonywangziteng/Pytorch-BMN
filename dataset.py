@@ -4,6 +4,7 @@ import pandas as pd
 import torch
 from torch.utils.data import DataLoader, Dataset
 from utils.iou_utils import iou_with_temporal_proposals, ioa_with_temporal_proposals
+import pdb
 
 
 def load_json(file):
@@ -16,7 +17,7 @@ def load_json(file):
 class MyDataset(Dataset): 
 
     def __init__(self, opt, mode='train'):
-
+        super(MyDataset).__init__()
         self.mode = mode
         self.temporal_scale = opt.temporal_scale     # 100
         self.temporal_gap = 1. / self.temporal_scale
@@ -25,7 +26,6 @@ class MyDataset(Dataset):
         self.video_anno_path = opt.video_anno_path   # /data/activitynet_annotations/anet_anno_action.json
 
         self.get_all_data()
-
 
     def get_all_data(self):
 
@@ -44,7 +44,6 @@ class MyDataset(Dataset):
         self.video_list = list(self.video_dict.keys())
         print("{} subset has {} videos.".format(self.mode, len(self.video_list)))
 
-    
     def get_train_label(self, index):
 
         """Get confidence map and score sequences through certain video's annotation. """
@@ -96,6 +95,8 @@ class MyDataset(Dataset):
         start_score = torch.Tensor(start_score)
         end_score = torch.Tensor(end_score)
 
+        pdb.set_trace()
+
         return gt_iou_map, start_score, end_score
 
 
@@ -118,3 +119,9 @@ class MyDataset(Dataset):
     def __len__(self):              
 
         return len(self.video_list)
+
+if __name__ == '__main__':
+    from opt import MyConfig
+    opt = MyConfig()
+    dataset = MyDataset(opt)
+    dataset.get_train_label(10)

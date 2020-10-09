@@ -33,8 +33,8 @@ def iou_with_temporal_proposals(box_min, box_max, proposals_min, proposals_max):
     Arguements:
         box_min: (np.ndarray[1]): start time of box.
         box_max: (np.ndarray[1]): end time of box.
-        proposals_min: (np.ndarray[N]): start times of temporal proposals.
-        proposals_max: (np.ndarray[N]): end times of temporal proposals.
+        proposals_min: (np.ndarray[N]): start times of temporal proposals. percentile
+        proposals_max: (np.ndarray[N]): end times of temporal proposals.percentile
 
     Return Arguements:
         ious: (np.ndarray[N]): ious between box and all temporal proposals.
